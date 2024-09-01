@@ -15,27 +15,32 @@ const mongoURI = process.env.MONGO_URI || "mongodb+srv://rajputsnehaa8:9BCwXYLmy
 // mongoose.connect(mongoURI)
 //     .then(() => console.log('Connected to MongoDB'))
 //     .catch(err => console.error('Could not connect to MongoDB', err));
-
-const client = new MongoClient(mongoURI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
-});
-async function run() {
-  try {
-    // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
-    // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
-    // Ensures that the client will close when you finish/error
-    await client.close();
-  }
-}
-run().catch(console.dir);
+mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected successfully via Mongoose'))
+    .catch(err => {
+        console.error('Error connecting to MongoDB:', err);
+        process.exit(1);
+    });
+// const client = new MongoClient(mongoURI, {
+//   serverApi: {
+//     version: ServerApiVersion.v1,
+//     strict: true,
+//     deprecationErrors: true,
+//   }
+// });
+// async function run() {
+//   try {
+//     // Connect the client to the server	(optional starting in v4.7)
+//     await client.connect();
+//     // Send a ping to confirm a successful connection
+//     await client.db("admin").command({ ping: 1 });
+//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//   } finally {
+//     // Ensures that the client will close when you finish/error
+//     await client.close();
+//   }
+// }
+// run().catch(console.dir);
 
 
 // Middleware
